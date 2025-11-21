@@ -12,6 +12,8 @@ header {
   overflow: hidden;
   max-height: var(--header-height);
   background-color: light-dark(var(--color-light), var(--color-dark));
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(8px);
 
   ul {
     margin: 0;
@@ -26,6 +28,11 @@ header {
 
   a {
     text-decoration: none;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+      color: var(--color-accent);
+    }
   }
 
   .btn {

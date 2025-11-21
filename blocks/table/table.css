@@ -1,11 +1,32 @@
 .table {
+  overflow-x: auto;
+
   table {
     width: 100%;
     border-collapse: collapse;
+    font-size: var(--body-font-size-s);
 
     th,
     td {
-      border: 1px solid;
+      border: 1px solid light-dark(var(--color-gray-300), var(--color-gray-600));
+      padding: 12px 16px;
+      text-align: left;
+    }
+
+    th {
+      background-color: light-dark(var(--color-gray-100), var(--color-gray-800));
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: var(--body-font-size-xs);
+    }
+
+    tr:hover {
+      background-color: light-dark(var(--color-gray-100), var(--color-gray-800));
+    }
+
+    tbody tr {
+      transition: background-color 0.2s ease-in-out;
     }
   }
 }
