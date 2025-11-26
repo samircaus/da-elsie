@@ -1,40 +1,25 @@
-<?xml version="1.0" encoding="UTF-8"?><svg id="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-    <!-- Decorative pattern grid - left side -->
-    <g opacity="0.15">
-        <rect fill="currentColor" x="12" y="12" width="12" height="12" rx="2"/>
-        <rect fill="currentColor" x="12" y="30" width="12" height="12" rx="2"/>
-        <rect fill="currentColor" x="30" y="12" width="12" height="12" rx="2"/>
-        <rect fill="currentColor" x="12" y="232" width="12" height="12" rx="2"/>
-        <rect fill="currentColor" x="30" y="232" width="12" height="12" rx="2"/>
-        <rect fill="currentColor" x="12" y="214" width="12" height="12" rx="2"/>
-    </g>
-    
-    <!-- Main geometric icon - represents "edge" with angular cuts and "pattern" with repetition -->
+<?xml version="1.0" encoding="UTF-8"?><svg id="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160">
     <g fill="currentColor">
-        <!-- Outer frame with cut edges -->
-        <path d="M 50,50 L 110,50 L 130,70 L 130,130 L 110,150 L 50,150 L 30,130 L 30,70 Z M 45,65 L 45,135 L 55,145 L 105,145 L 115,135 L 115,75 L 105,65 Z" opacity="0.9"/>
+        <!-- E letter - elegant with geometric cut -->
+        <path d="M 20,20 L 20,140 L 110,140 L 110,118 L 48,118 L 48,90 L 100,90 L 100,70 L 48,70 L 48,42 L 110,42 L 110,20 Z"/>
+        <!-- Small accent square on E -->
+        <rect x="94" y="26" width="10" height="10" rx="2" opacity="0.4"/>
         
-        <!-- Inner pattern element -->
-        <rect x="55" y="75" width="50" height="60" rx="4"/>
-        <rect x="62" y="82" width="36" height="46" rx="3" fill="#ffffff" opacity="0.2"/>
+        <!-- P letter - modern with flowing curves -->
+        <path d="M 120,20 L 120,140 L 148,140 L 148,95 L 190,95 C 222,95 240,77 240,58 C 240,39 222,20 190,20 Z 
+                 M 148,42 L 190,42 C 205,42 212,49 212,58 C 212,67 205,73 190,73 L 148,73 Z"/>
         
-        <!-- EP text - stylized and modern -->
-        <g transform="translate(140, 50)">
-            <!-- E -->
-            <path d="M 0,0 L 0,100 L 50,100 L 50,85 L 18,85 L 18,55 L 45,55 L 45,45 L 18,45 L 18,15 L 50,15 L 50,0 Z"/>
-            
-            <!-- P -->
-            <path d="M 60,0 L 60,100 L 78,100 L 78,60 L 100,60 C 112,60 122,50 122,38 C 122,26 112,16 100,16 L 100,0 Z M 78,15 L 100,15 C 103,15 106,20 106,28 C 106,36 103,41 100,41 L 78,41 Z"/>
+        <!-- Decorative pattern dots - flowing across the letters -->
+        <g opacity="0.3">
+            <circle cx="30" cy="35" r="3"/>
+            <circle cx="65" cy="55" r="2.5"/>
+            <circle cx="85" cy="105" r="3"/>
+            <circle cx="130" cy="50" r="2.5"/>
+            <circle cx="175" cy="85" r="3"/>
+            <circle cx="220" cy="65" r="2.5"/>
         </g>
-    </g>
-    
-    <!-- Decorative pattern grid - right side -->
-    <g opacity="0.15">
-        <rect fill="currentColor" x="232" y="12" width="12" height="12" rx="2"/>
-        <rect fill="currentColor" x="214" y="12" width="12" height="12" rx="2"/>
-        <rect fill="currentColor" x="232" y="30" width="12" height="12" rx="2"/>
-        <rect fill="currentColor" x="232" y="232" width="12" height="12" rx="2"/>
-        <rect fill="currentColor" x="214" y="232" width="12" height="12" rx="2"/>
-        <rect fill="currentColor" x="232" y="214" width="12" height="12" rx="2"/>
+        
+        <!-- Subtle connecting line element -->
+        <path d="M 112,80 Q 116,80 120,81" stroke="currentColor" fill="none" stroke-width="2" opacity="0.2"/>
     </g>
 </svg>

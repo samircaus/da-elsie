@@ -11,9 +11,9 @@ header {
   z-index: 1000;
   overflow: hidden;
   max-height: var(--header-height);
-  background-color: light-dark(var(--color-light), var(--color-dark));
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  backdrop-filter: blur(8px);
+  background-color: light-dark(rgba(255, 255, 255, 0.95), rgba(26, 20, 18, 0.95));
+  box-shadow: 0 2px 12px light-dark(rgba(193, 66, 63, 0.08), rgba(232, 104, 92, 0.12));
+  backdrop-filter: blur(12px);
 
   ul {
     margin: 0;

@@ -154,14 +154,32 @@
   --color-yellow-800: #92400e;
   --color-yellow-900: #78350f;
 
+  /* custom warm colors */
+  --color-beige-50: #fefdfb;
+  --color-beige-100: #f9f6f0;
+  --color-beige-200: #f5e6d3;
+  --color-beige-300: #e8d5ba;
+  --color-beige-400: #d4ba94;
+  --color-beige-500: #c19f6f;
+  --color-rust-100: #fde8e6;
+  --color-rust-200: #fbc5bf;
+  --color-rust-300: #f59f97;
+  --color-rust-400: #e8685c;
+  --color-rust-500: #c1423f;
+  --color-rust-600: #a53633;
+  --color-rust-700: #8a2c29;
+  --color-rust-800: #6f2320;
+  --color-terracotta-500: #d4623a;
+  --color-terracotta-600: #b54e2c;
+
   /* named colors */
   --color-light: #ffffff;
-  --color-dark: #0f172a;
-  --color-text: light-dark(var(--color-dark), var(--color-light));
-  --color-link: light-dark(var(--color-blue-600), var(--color-blue-400));
-  --color-brand: var(--color-blue-600);
-  --color-accent: light-dark(var(--color-purple-600), var(--color-purple-500));
-  --color-shaded: light-dark(#f8fafc, #1e293b);
+  --color-dark: #1a1412;
+  --color-text: light-dark(#2a2420, #f5e6d3);
+  --color-link: light-dark(var(--color-rust-600), var(--color-rust-400));
+  --color-brand: var(--color-rust-500);
+  --color-accent: light-dark(var(--color-terracotta-600), var(--color-terracotta-500));
+  --color-shaded: light-dark(var(--color-beige-100), #2a2420);
 
   /* fonts */
   --font-family: montserrat, "Trebuchet MS", sans-serif;
@@ -271,8 +289,8 @@ a {
 
     &:hover {
       color: #fff;
-      background: var(--color-purple-700);
-      border-color: var(--color-purple-700);
+      background: var(--color-terracotta-600);
+      border-color: var(--color-terracotta-600);
     }
 
     &.btn-outline {
@@ -287,14 +305,14 @@ a {
   }
 
   &.btn-primary {
-    color: light-dark(var(--color-light), var(--color-dark));
+    color: var(--color-beige-50);
     background-color: var(--color-brand);
     border-color: var(--color-brand);
 
     &:hover {
-      color: light-dark(var(--color-light), var(--color-dark));
-      background-color: var(--color-blue-700);
-      border-color: var(--color-blue-700);
+      color: var(--color-beige-50);
+      background-color: var(--color-rust-600);
+      border-color: var(--color-rust-600);
     }
 
     &.btn-outline {
@@ -303,7 +321,7 @@ a {
 
       &:hover {
         background: var(--color-brand);
-        color: var(--color-light);
+        color: var(--color-beige-50);
       }
     }
   }
