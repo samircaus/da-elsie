@@ -1,4 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?><svg id="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
-    <path fill="currentColor"
-        d="M181.75,117.16l52.59-52.61c-13.81-13.81-36.21-13.81-50.02,0l-24.98,24.99c0-19.53-15.84-35.35-35.37-35.35v74.82l-30.38-63.87c-4-6.56-11.2-10.95-19.45-10.95s-15.44,4.39-19.45,10.95L1.71,176.53c-4.19,8.82-.43,19.37,8.39,23.56,8.82,4.19,19.37.43,23.56-8.39l40.48-85.48,34.37,72.58c.69,1.86,1.55,3.65,2.53,5.34l1.23,2.59.45.03c6.4,9.09,16.97,15.04,28.94,15.04h17.68v-57.03l46.64,46.67c13.81,13.81,36.21,13.81,50.02,0l-74.25-74.28Z" />
+    <!-- Decorative pattern grid - left side -->
+    <g opacity="0.15">
+        <rect fill="currentColor" x="12" y="12" width="12" height="12" rx="2"/>
+        <rect fill="currentColor" x="12" y="30" width="12" height="12" rx="2"/>
+        <rect fill="currentColor" x="30" y="12" width="12" height="12" rx="2"/>
+        <rect fill="currentColor" x="12" y="232" width="12" height="12" rx="2"/>
+        <rect fill="currentColor" x="30" y="232" width="12" height="12" rx="2"/>
+        <rect fill="currentColor" x="12" y="214" width="12" height="12" rx="2"/>
+    </g>
+    
+    <!-- Main geometric icon - represents "edge" with angular cuts and "pattern" with repetition -->
+    <g fill="currentColor">
+        <!-- Outer frame with cut edges -->
+        <path d="M 50,50 L 110,50 L 130,70 L 130,130 L 110,150 L 50,150 L 30,130 L 30,70 Z M 45,65 L 45,135 L 55,145 L 105,145 L 115,135 L 115,75 L 105,65 Z" opacity="0.9"/>
+        
+        <!-- Inner pattern element -->
+        <rect x="55" y="75" width="50" height="60" rx="4"/>
+        <rect x="62" y="82" width="36" height="46" rx="3" fill="#ffffff" opacity="0.2"/>
+        
+        <!-- EP text - stylized and modern -->
+        <g transform="translate(140, 50)">
+            <!-- E -->
+            <path d="M 0,0 L 0,100 L 50,100 L 50,85 L 18,85 L 18,55 L 45,55 L 45,45 L 18,45 L 18,15 L 50,15 L 50,0 Z"/>
+            
+            <!-- P -->
+            <path d="M 60,0 L 60,100 L 78,100 L 78,60 L 100,60 C 112,60 122,50 122,38 C 122,26 112,16 100,16 L 100,0 Z M 78,15 L 100,15 C 103,15 106,20 106,28 C 106,36 103,41 100,41 L 78,41 Z"/>
+        </g>
+    </g>
+    
+    <!-- Decorative pattern grid - right side -->
+    <g opacity="0.15">
+        <rect fill="currentColor" x="232" y="12" width="12" height="12" rx="2"/>
+        <rect fill="currentColor" x="214" y="12" width="12" height="12" rx="2"/>
+        <rect fill="currentColor" x="232" y="30" width="12" height="12" rx="2"/>
+        <rect fill="currentColor" x="232" y="232" width="12" height="12" rx="2"/>
+        <rect fill="currentColor" x="214" y="232" width="12" height="12" rx="2"/>
+        <rect fill="currentColor" x="232" y="214" width="12" height="12" rx="2"/>
+    </g>
 </svg>

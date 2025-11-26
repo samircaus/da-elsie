@@ -3,22 +3,23 @@
   <style>
     @media (prefers-color-scheme: dark) {
         .bg { fill: #2A2A2A }
-        .accent { fill: #E8685C }
+        .pattern { fill: #E8685C }
         .text { fill: #F5E6D3 }
     }
   </style>
   <!-- Background -->
   <rect class="bg" fill="#C1423F" width="500" height="500" rx="80"/>
   
-  <!-- Accent circle -->
-  <circle class="accent" fill="#E8685C" cx="380" cy="120" r="60" opacity="0.6"/>
+  <!-- Pattern elements - subtle geometric pattern -->
+  <rect class="pattern" fill="#E8685C" x="380" y="60" width="60" height="60" rx="8" opacity="0.4"/>
+  <rect class="pattern" fill="#E8685C" x="60" y="380" width="60" height="60" rx="8" opacity="0.4"/>
   
-  <!-- D letter -->
+  <!-- E letter -->
   <path class="text" fill="#F5E6D3" 
-    d="M90,140 L90,360 L180,360 C230,360 270,320 270,250 C270,180 230,140 180,140 Z 
-       M150,190 L180,190 C200,190 215,210 215,250 C215,290 200,310 180,310 L150,310 Z"/>
+    d="M90,140 L90,360 L260,360 L260,310 L150,310 L150,270 L240,270 L240,230 L150,230 L150,190 L260,190 L260,140 Z"/>
   
-  <!-- X letter -->
+  <!-- P letter -->
   <path class="text" fill="#F5E6D3" 
-    d="M300,140 L350,250 L300,360 L360,360 L390,290 L420,360 L480,360 L430,250 L480,140 L420,140 L390,210 L360,140 Z"/>
+    d="M300,140 L300,360 L360,360 L360,280 L400,280 C440,280 470,250 470,210 C470,170 440,140 400,140 Z 
+       M360,190 L400,190 C410,190 420,200 420,210 C420,220 410,230 400,230 L360,230 Z"/>
 </svg>
