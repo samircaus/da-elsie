@@ -101,8 +101,10 @@ async function decorateAction(header, pattern) {
     btn.append(textSpan);
   }
   const wrapper = document.createElement('div');
-  wrapper.className = `action-wrapper ${icon.classList[1].replace('icon-', '')}`;
+  const iconClass = icon && icon.classList[1] ? icon.classList[1].replace('icon-', '') : '';
+  wrapper.className = `action-wrapper ${iconClass}`;
   wrapper.append(btn);
+  
   link.parentElement.parentElement.replaceChild(wrapper, link.parentElement);
 
   if (pattern === '/tools/widgets/language') decorateLanguage(btn);
@@ -131,10 +133,33 @@ function decorateNavItem(li) {
   if (link) link.classList.add('main-nav-link');
   const menu = decorateMegaMenu(li) || decorateMenu(li);
   if (!(menu || link)) return;
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    toggleMenu(li);
-  });
+  
+  // Show mega menu on hover if it exists (desktop only)
+  if (menu) {
+    li.addEventListener('mouseenter', () => {
+      // Only show mega menu on desktop (>= 900px)
+      if (window.innerWidth >= 900) {
+        closeAllMenus();
+        li.classList.add('is-open');
+      }
+    });
+    
+    li.addEventListener('mouseleave', () => {
+      if (window.innerWidth >= 900) {
+        li.classList.remove('is-open');
+      }
+    });
+  }
+  
+  // Close mobile menu when clicking a link
+  if (link) {
+    link.addEventListener('click', () => {
+      if (window.innerWidth < 900) {
+        const header = document.body.querySelector('header');
+        if (header) header.classList.remove('is-mobile-open');
+      }
+    });
+  }
 }
 
 function decorateBrandSection(section) {
@@ -145,6 +170,27 @@ function decorateBrandSection(section) {
   span.className = 'brand-text';
   span.append(text);
   brandLink.append(span);
+
+  // Create mobile hamburger menu toggle button
+  const defaultContent = section.querySelector('.default-content');
+  const mobileToggle = document.createElement('div');
+  mobileToggle.className = 'action-wrapper hamburger';
+  
+  const btn = document.createElement('button');
+  btn.setAttribute('aria-label', 'Toggle mobile menu');
+  
+  const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  icon.classList.add('icon', 'icon-hamburger');
+  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+  use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '/img/icons/hamburger.svg#hamburger');
+  icon.appendChild(use);
+  
+  btn.appendChild(icon);
+  mobileToggle.appendChild(btn);
+  defaultContent.appendChild(mobileToggle);
+  
+  // Add click handler
+  decorateNavToggle(btn);
 }
 
 function decorateNavSection(section) {
@@ -174,6 +220,7 @@ async function decorateHeader(fragment) {
   if (sections[1]) decorateNavSection(sections[1]);
   if (sections[2]) decorateActionSection(sections[2]);
 
+  // Decorate action widgets (language, scheme, etc.)
   for (const pattern of HEADER_ACTIONS) {
     decorateAction(fragment, pattern);
   }
