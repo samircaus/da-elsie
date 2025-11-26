@@ -15,9 +15,7 @@
   }
 
   .col {
-    :first-child {
-      margin-top: 0;
-    }
+    /* Allow natural top margins */
 
     :last-child {
       margin-bottom: 0;

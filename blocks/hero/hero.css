@@ -1,6 +1,7 @@
 .hero {
   position: relative;
-  color: #fff;
+  color: var(--color-dark);
+  background-color: var(--color-beige-100);
   overflow: hidden;
 
   --min-height: 480px;
@@ -19,19 +20,25 @@
 
   &.light {
     color: var(--color-dark);
+    background-color: var(--color-beige-100);
   }
 
   &.dark {
     color: var(--color-light);
+    background-color: var(--color-dark);
   }
 
   &::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(193, 66, 63, 0.08) 0%, rgba(212, 98, 58, 0.08) 100%);
     pointer-events: none;
     z-index: 1;
+  }
+  
+  &.dark::before {
+    background: linear-gradient(135deg, rgba(193, 66, 63, 0.2) 0%, rgba(212, 98, 58, 0.2) 100%);
   }
 
   .hero-background {
@@ -69,13 +76,15 @@
     padding: var(--spacing-xl) 0;
 
     p {
-      margin: 16px 0;
-      font-size: var(--body-font-size-l);
+      margin: 24px 0;
+      font-size: var(--body-font-size-xl);
       line-height: 1.8;
-    }
+      color: var(--color-dark);
+      font-weight: 600;
 
-    div > *:first-child {
-      margin-top: 0;
+      @media (width >= 768px) {
+        font-size: var(--body-font-size-xxl);
+      }
     }
 
     div > *:last-child {
@@ -84,18 +93,20 @@
 
     .hero-detail {
       margin: 0;
-      font-size: var(--body-font-size-s);
+      font-size: var(--body-font-size-m);
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       font-weight: 600;
-      opacity: 0.9;
+      color: var(--color-rust-600);
+      opacity: 0.95;
     }
 
     .hero-heading {
-      margin: 16px 0;
+      margin: 20px 0;
       font-size: var(--heading-font-size-xxl);
       font-weight: 700;
       line-height: 1.2;
+      color: var(--color-dark);
 
       @media (width >= 768px) {
         font-size: 48px;
@@ -107,6 +118,22 @@
     .hero-foreground {
       justify-content: center;
       text-align: center;
+    }
+  }
+
+  &.dark {
+    .hero-foreground {
+      p {
+        color: var(--color-beige-200);
+      }
+
+      .hero-detail {
+        color: var(--color-rust-400);
+      }
+
+      .hero-heading {
+        color: var(--color-light);
+      }
     }
   }
 }

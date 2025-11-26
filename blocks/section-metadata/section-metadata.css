@@ -88,9 +88,7 @@
     }
   }
 
-  > .default-content > *:first-child {
-    margin-top: 0;
-  }
+  /* Allow natural top margins on first child */
 
   &.container {
     .default-content,
