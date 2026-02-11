@@ -9,6 +9,13 @@
   border-radius: 12px;
   border: 1px solid light-dark(var(--color-gray-200), var(--color-gray-700));
 
+  .card-link {
+    display: block;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+  }
+
   .card-inner {
     display: grid;
     grid-template-rows: auto 1fr auto;

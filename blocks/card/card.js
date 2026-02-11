@@ -17,15 +17,23 @@ export default function init(el) {
   if (!con) return;
   con.classList.add('card-content-container');
 
-  // Decorate CTA
-  const ctaPara = inner.querySelector(':scope > div:last-of-type > p:last-of-type');
-  if (!ctaPara) return;
-  const cta = ctaPara.querySelector('a');
+  // Find link in content and make whole card clickable (link is not displayed)
+  const cta = inner.querySelector('a');
   if (!cta) return;
+  let href = cta.getAttribute('href');
+  if (!href) return;
   const hashAware = el.classList.contains('hash-aware');
   if (hashAware) {
-    cta.href = `${cta.getAttribute('href')}${window.location.hash}`;
+    href = `${href}${window.location.hash}`;
   }
-  ctaPara.classList.add('card-cta-container');
-  inner.append(ctaPara);
+  // Remove the paragraph that contains the link so it is not rendered
+  const ctaPara = cta.closest('p');
+  if (ctaPara) ctaPara.remove();
+
+  // Wrap entire card inner in the link
+  const link = document.createElement('a');
+  link.href = href;
+  link.classList.add('card-link');
+  inner.parentNode.insertBefore(link, inner);
+  link.appendChild(inner);
 }
