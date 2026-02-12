@@ -70,12 +70,13 @@
   }
 
   &.spacing-xl {
-    --top-bottom-spacing: calc(var(--spacing-xl) * 2);
+    padding: 0 0 calc(var(--spacing-xl) * 2) 0;
   }
 
   &.spacing-xxl {
     --top-bottom-spacing: calc(var(--spacing-xxl) * 2);
   }
+
 
   &.grid .block-content {
     display: grid;
