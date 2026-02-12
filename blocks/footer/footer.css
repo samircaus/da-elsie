@@ -1,6 +1,5 @@
 footer {
-  margin-top: auto;
-  padding-top: var(--spacing-xl);
+  margin-top: var(--spacing-xl);
   border-top: 1px solid light-dark(var(--color-gray-200), var(--color-gray-700));
   background-color: light-dark(var(--color-shaded), var(--color-gray-900));
 
