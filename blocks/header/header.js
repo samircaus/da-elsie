@@ -118,7 +118,7 @@ function decorateMenu() {
 }
 
 function decorateMegaMenu(li) {
-  const menu = li.querySelector('.fragment-content');
+  const menu = li.querySelector('.fragment-content') ?? li.querySelector(':scope > .section');
   if (!menu) return null;
   const wrapper = document.createElement('div');
   wrapper.className = 'mega-menu';

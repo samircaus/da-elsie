@@ -297,11 +297,15 @@ header {
     }
 
     .mega-menu {
+      > .fragment-content,
+      > .section {
+        max-width: var(--grid-container-width);
+        margin: 0 auto;
+      }
+
       > .fragment-content {
         display: grid;
         grid-template-columns: repeat(var(--mega-columns), 1fr);
-        max-width: var(--grid-container-width);
-        margin: 0 auto;
 
         .section {
           margin-block: initial;
