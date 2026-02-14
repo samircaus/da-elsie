@@ -4,14 +4,26 @@
   background-color: var(--color-beige-100);
   overflow: hidden;
 
-  --min-height: 480px;
+  --min-height: 420px;
+
+  @media (width < 768px) {
+    --min-height: 320px;
+  }
 
   &.small {
-    --min-height: 240px;
+    --min-height: 220px;
+
+    @media (width < 768px) {
+      --min-height: 200px;
+    }
   }
 
   &.large {
-    --min-height: 720px;
+    --min-height: 640px;
+
+    @media (width < 768px) {
+      --min-height: 400px;
+    }
   }
 
   &.full {
@@ -51,6 +63,7 @@
       object-fit: cover;
       width: 100%;
       height: 100%;
+      opacity: 0.4;
     }
 
     > div {

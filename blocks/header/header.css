@@ -216,7 +216,6 @@ header {
 
   .main-nav-section {
     grid-area: nav;
-    overflow: scroll;
     padding: 0;
 
     .default-content {
