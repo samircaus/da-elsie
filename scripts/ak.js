@@ -276,6 +276,8 @@ export async function loadArea({ area } = { area: document }) {
     loadTemplate();
   }
   const sections = decorateSections(area, isDoc);
+  const { afterSectionsDecorate } = getConfig();
+  if (afterSectionsDecorate) afterSectionsDecorate({ area });
   for (const [idx, section] of sections.entries()) {
     loadIcons(section);
     await Promise.all(section.widgets.map((block) => loadBlock(block)));

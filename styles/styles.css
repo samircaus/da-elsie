@@ -461,6 +461,81 @@ strong {
   font-weight: 600;
 }
 
+/* Inline code */
+code {
+  font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  padding: 0.2em 0.4em;
+  background-color: var(--color-beige-100);
+  border-radius: 4px;
+  color: light-dark(var(--color-gray-800), var(--color-beige-200));
+}
+
+/* Code blocks */
+.code-block-wrapper {
+  position: relative;
+  margin: 1.25em 0;
+}
+
+.code-block-wrapper pre {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  padding-top: 0.75rem;
+  overflow-x: auto;
+  font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
+  font-size: var(--body-font-size-s);
+  line-height: 1.5;
+  background-color: var(--color-beige-100);
+  border-radius: 8px;
+  color: light-dark(var(--color-gray-800), var(--color-beige-200));
+}
+
+.code-block-wrapper pre code {
+  padding: 0;
+  background: none;
+  border: none;
+  font-size: inherit;
+  color: inherit;
+}
+
+.code-block-wrapper .code-comment {
+  color: var(--color-gray-500);
+  font-style: italic;
+  opacity: 0.85;
+}
+
+.code-block-copy {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  color: var(--color-gray-600);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.code-block-copy svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.code-block-copy:hover {
+  color: var(--color-gray-800);
+}
+
+.code-block-copy.copied {
+  color: var(--color-green-700);
+}
+
 input,
 textarea,
 select,
