@@ -466,9 +466,9 @@ code {
   font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
   font-size: 0.9em;
   padding: 0.2em 0.4em;
-  background-color: var(--color-beige-100);
+  background-color: light-dark(var(--color-beige-100), var(--color-gray-800));
   border-radius: 4px;
-  color: light-dark(var(--color-gray-800), var(--color-beige-200));
+  color: light-dark(var(--color-gray-800), var(--color-gray-300));
 }
 
 /* Code blocks */
@@ -485,9 +485,9 @@ code {
   font-family: ui-monospace, "Cascadia Code", "Source Code Pro", Menlo, Consolas, monospace;
   font-size: var(--body-font-size-s);
   line-height: 1.5;
-  background-color: var(--color-beige-100);
+  background-color: light-dark(var(--color-beige-100), var(--color-gray-800));
   border-radius: 8px;
-  color: light-dark(var(--color-gray-800), var(--color-beige-200));
+  color: light-dark(var(--color-gray-800), var(--color-gray-300));
 }
 
 .code-block-wrapper pre code {
@@ -499,7 +499,7 @@ code {
 }
 
 .code-block-wrapper .code-comment {
-  color: var(--color-gray-500);
+  color: light-dark(var(--color-gray-500), var(--color-gray-400));
   font-style: italic;
   opacity: 0.85;
 }
@@ -514,7 +514,7 @@ code {
   width: 32px;
   height: 32px;
   padding: 0;
-  color: var(--color-gray-600);
+  color: light-dark(var(--color-gray-600), var(--color-gray-400));
   background: transparent;
   border: none;
   border-radius: 6px;
@@ -529,11 +529,11 @@ code {
 }
 
 .code-block-copy:hover {
-  color: var(--color-gray-800);
+  color: light-dark(var(--color-gray-800), var(--color-gray-200));
 }
 
 .code-block-copy.copied {
-  color: var(--color-green-700);
+  color: light-dark(var(--color-green-700), var(--color-green-400));
 }
 
 input,
