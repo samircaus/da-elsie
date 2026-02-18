@@ -1,0 +1,96 @@
+/* Callout block: highlighted message box with type (note, tip, warning, info) */
+
+.callout {
+  max-width: var(--grid-container-width);
+  margin-left: auto;
+  margin-right: auto;
+  --callout-border-width: 3px;
+  --callout-icon-size: 1.25rem;
+  --callout-gap: 0.75rem;
+  --callout-padding: 1rem 1.25rem;
+  --callout-radius: 8px;
+  --callout-note-bg: #f0f6fc;
+  --callout-note-border: #0969da;
+  --callout-tip-bg: #dafbe1;
+  --callout-tip-border: #1a7f37;
+  --callout-warning-bg: #fff8c5;
+  --callout-warning-border: #9a6700;
+  --callout-info-bg: #eae6ff;
+  --callout-info-border: #8250df;
+}
+
+.callout__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--callout-gap);
+  padding: var(--callout-padding);
+  border-radius: var(--callout-radius);
+  border-inline-start: var(--callout-border-width) solid;
+  position: relative;
+}
+
+/* Type variants (background + border) */
+.callout--note .callout__inner {
+  background-color: var(--callout-note-bg);
+  border-color: var(--callout-note-border);
+}
+
+.callout--tip .callout__inner {
+  background-color: var(--callout-tip-bg);
+  border-color: var(--callout-tip-border);
+}
+
+.callout--warning .callout__inner {
+  background-color: var(--callout-warning-bg);
+  border-color: var(--callout-warning-border);
+}
+
+.callout--info .callout__inner {
+  background-color: var(--callout-info-bg);
+  border-color: var(--callout-info-border);
+}
+
+.callout__header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.callout__title {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.callout__body {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.callout__body .callout__row:first-child {
+  margin-top: 0;
+}
+
+.callout__body .callout__row {
+  margin-top: 0.5em;
+}
+
+.callout__body .callout__row p:first-child {
+  margin-top: 0;
+}
+
+.callout__body .callout__row p:last-child {
+  margin-bottom: 0;
+}
+
+.callout__body p,
+.callout__body ul,
+.callout__body ol {
+  margin: 0.5em 0;
+}
+
+.callout__body ul,
+.callout__body ol {
+  padding-left: 1.5em;
+}
