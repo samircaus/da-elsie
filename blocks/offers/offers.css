@@ -1,0 +1,19 @@
+/* Scope to the block container only (direct child of .default-content) so we never hide a parent/section */
+.default-content > .offers {
+  position: relative;
+}
+
+/* Hide only the offers block content until it is ready; collapse height so the rest of the page stays visible */
+.default-content > .offers:not(.offers--ready) {
+  opacity: 0;
+  height: 0;
+  max-height: 0;
+  min-height: 0;
+  overflow: hidden;
+  transition: opacity 200ms ease-out;
+}
+
+/* When ready, fade in the offers content */
+.default-content > .offers.offers--ready {
+  opacity: 1;
+}

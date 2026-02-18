@@ -1,0 +1,30 @@
+/* offers-below-hero: reserved height + 3 images with links (loaded only when this renderer is used) */
+.default-content > .offers.offers-below-hero {
+  min-height: 320px;
+}
+
+.offers-list--below-hero .offers-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.offers-list--below-hero .offers-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.offers-list--below-hero .offers-card-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.offers-list--below-hero .offers-card-title {
+  display: block;
+  margin-top: 0.5rem;
+  font-weight: 600;
+}
