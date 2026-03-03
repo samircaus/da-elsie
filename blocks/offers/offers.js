@@ -36,6 +36,23 @@ function getDecisionsForSurface(detail, surface) {
 
 function mapDecisionItemsToOffers(surfaceDecision) {
   const items = surfaceDecision.items || [];
+
+  // AJO json-content-item: offers are nested under item.data.content.offers
+  for (const item of items) {
+    const nested = item?.data?.content?.offers;
+    if (Array.isArray(nested) && nested.length) {
+      return nested.map((offer) => ({
+        id: offer.id || '',
+        title: offer.title || offer.name || '',
+        description: offer.description || '',
+        imageUrl: offer.imageUrl || offer.image || '',
+        ctaText: offer.ctaText || offer.ctaLabel || '',
+        ctaUrl: offer.ctaUrl || offer.url || '#',
+      }));
+    }
+  }
+
+  // Fallback: each item is itself an offer
   return items.map((item) => {
     const data = item.data || item;
     return {

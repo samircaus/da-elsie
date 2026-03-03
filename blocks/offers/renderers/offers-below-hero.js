@@ -52,21 +52,39 @@ export function render(block, offers, config) {
     link.className = 'offers-card-link';
     link.href = href;
 
+    const inner = document.createElement('div');
+    inner.className = 'offers-card-inner';
+
     if (offer.imageUrl) {
+      const picContainer = document.createElement('div');
+      picContainer.className = 'offers-card-picture-container';
       const img = document.createElement('img');
       img.className = 'offers-card-image';
       img.src = offer.imageUrl;
       img.alt = offer.title || '';
-      link.appendChild(img);
+      picContainer.appendChild(img);
+      inner.appendChild(picContainer);
     }
+
+    const contentContainer = document.createElement('div');
+    contentContainer.className = 'offers-card-content-container';
 
     if (offer.title) {
-      const span = document.createElement('span');
-      span.className = 'offers-card-title';
-      span.textContent = offer.title;
-      link.appendChild(span);
+      const title = document.createElement('p');
+      title.className = 'offers-card-title';
+      title.textContent = offer.title;
+      contentContainer.appendChild(title);
     }
 
+    if (offer.description) {
+      const desc = document.createElement('p');
+      desc.className = 'offers-card-description';
+      desc.textContent = offer.description;
+      contentContainer.appendChild(desc);
+    }
+
+    inner.appendChild(contentContainer);
+    link.appendChild(inner);
     card.appendChild(link);
     list.appendChild(card);
   });
