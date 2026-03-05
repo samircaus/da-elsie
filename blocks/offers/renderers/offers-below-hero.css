@@ -1,13 +1,40 @@
 /* offers-below-hero renderer — styled to match the card block */
 .default-content > .offers.offers-below-hero {
-  min-height: 320px;
-  padding-block: var(--spacing-xl, 3rem);
+  min-height: 0;
+  padding-block: var(--spacing-l, 2rem);
+}
+
+@media (width >= 900px) {
+  .default-content > .offers.offers-below-hero {
+    min-height: 320px;
+    padding-block: var(--spacing-xl, 3rem);
+  }
+}
+
+.offers-list--below-hero .offers-title {
+  margin: 0 0 var(--spacing-l, 1.5rem);
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  font-weight: 700;
 }
 
 .offers-list--below-hero .offers-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (width >= 600px) {
+  .offers-list--below-hero .offers-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (width >= 900px) {
+  .offers-list--below-hero .offers-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
 }
 
 .offers-list--below-hero .offers-card {
@@ -59,7 +86,13 @@
 }
 
 .offers-list--below-hero .offers-card-content-container {
-  padding: var(--spacing-l, 1.5rem);
+  padding: var(--spacing-m, 1rem);
+}
+
+@media (width >= 600px) {
+  .offers-list--below-hero .offers-card-content-container {
+    padding: var(--spacing-l, 1.5rem);
+  }
 }
 
 .offers-list--below-hero .offers-card-content-container :last-child {
