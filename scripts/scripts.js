@@ -1,4 +1,5 @@
 import { loadArea, setConfig } from './ak.js';
+import injectPageJsonLd from './utils/jsonld.js';
 
 const hostnames = ['authorkit.dev'];
 
@@ -95,5 +96,6 @@ const afterSectionsDecorate = ({ area }) => decorateCodeBlocks(area);
 
 (async function loadPage() {
   setConfig({ hostnames, locales, widgets, components, decorateArea, afterSectionsDecorate });
+  injectPageJsonLd();
   await loadArea();
 }());
