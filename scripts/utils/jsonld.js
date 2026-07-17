@@ -99,6 +99,27 @@ export function buildWebSiteSchema({
   return schema;
 }
 
+// Required/recommended properties per Google's Article structured data guidelines:
+// https://developers.google.com/search/docs/appearance/structured-data/article
+export function getArticleSchemaIssues(schema) {
+  const issues = [];
+  if (!schema?.headline) issues.push('missing required property: headline');
+  if (!Array.isArray(schema?.image) || !schema.image.length) issues.push('missing required property: image');
+  if (!schema?.datePublished) issues.push('missing recommended property: datePublished');
+  if (!schema?.author?.name) issues.push('missing recommended property: author');
+  return issues;
+}
+
+// WebSite has no dedicated Google rich result on its own, so these only check
+// Schema.org-required shape, not Rich Results eligibility.
+export function getWebSiteSchemaIssues(schema) {
+  const issues = [];
+  if (!schema?.name) issues.push('missing required property: name');
+  if (!schema?.url) issues.push('missing required property: url');
+  if (!schema?.publisher?.name) issues.push('missing required property: publisher.name');
+  return issues;
+}
+
 function injectJsonLd(data) {
   if (!data) return;
   if (document.querySelector('script[type="application/ld+json"][data-generated]')) return;

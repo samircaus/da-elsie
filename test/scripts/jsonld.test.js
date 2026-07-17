@@ -2,6 +2,8 @@ import { expect } from '@esm-bundle/chai';
 import {
   buildArticleSchema,
   buildWebSiteSchema,
+  getArticleSchemaIssues,
+  getWebSiteSchemaIssues,
   isHomePage,
   parsePublicationDate,
   toAbsoluteUrl,
@@ -72,6 +74,31 @@ describe('JSON-LD utilities', () => {
     it('returns null without a title', () => {
       expect(buildArticleSchema({ url: 'https://example.com' })).to.be.null;
     });
+
+    // Google's Article rich-result eligibility requires "headline" and "image";
+    // "datePublished" and "author" are strongly recommended. Full metadata should
+    // satisfy all of them so real blog pages stay Rich Results-eligible.
+    it('satisfies Google required and recommended Article properties', () => {
+      const schema = buildArticleSchema({
+        title: 'Sample Post',
+        author: 'Samir',
+        datePublished: '2026-07-10',
+        image: 'https://example.com/image.jpg',
+        url: 'https://example.com/blog/sample-post',
+      });
+
+      expect(getArticleSchemaIssues(schema)).to.be.empty;
+    });
+
+    it('flags missing required and recommended Article properties', () => {
+      const schema = buildArticleSchema({ title: 'Sample Post', url: 'https://example.com' });
+
+      expect(getArticleSchemaIssues(schema)).to.deep.equal([
+        'missing required property: image',
+        'missing recommended property: datePublished',
+        'missing recommended property: author',
+      ]);
+    });
   });
 
   describe('buildWebSiteSchema', () => {
@@ -90,6 +117,19 @@ describe('JSON-LD utilities', () => {
 
     it('returns null without required fields', () => {
       expect(buildWebSiteSchema({ name: 'DA Elsie' })).to.be.null;
+    });
+
+    // WebSite has no dedicated Google rich result (it only backs the Sitelinks
+    // Search Box feature, which additionally needs a "potentialAction" this
+    // builder doesn't emit), so we only assert Schema.org-valid shape here.
+    it('produces schema.org-valid required properties', () => {
+      const schema = buildWebSiteSchema({
+        name: 'DA Elsie',
+        url: 'https://example.com',
+      });
+
+      expect(schema).to.have.property('@context', 'https://schema.org');
+      expect(getWebSiteSchemaIssues(schema)).to.be.empty;
     });
   });
 });

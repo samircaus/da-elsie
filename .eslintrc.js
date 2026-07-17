@@ -11,6 +11,15 @@ module.exports = {
   plugins: [
     'chai-friendly',
   ],
+  overrides: [
+    {
+      // browser: true covers globals referenced inside page.evaluate() callbacks,
+      // which run in a real browser tab, not in this script's own Node process.
+      files: ['qa/**/*.mjs'],
+      env: { browser: true, node: true },
+      rules: { 'no-console': 0 },
+    },
+  ],
   rules: {
     'no-param-reassign': [2, { props: false }],
     'class-methods-use-this': 0,
