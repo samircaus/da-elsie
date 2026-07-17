@@ -10,7 +10,8 @@
     "test:watch": "npm test -- --watch",
     "test:file": "wtr --node-resolve --port=2000 --coverage",
     "test:file:watch": "wtr --config ./web-test-runner.config.mjs --node-resolve --port=2000 --coverage --watch",
-    "build:lit": "esbuild --format=esm --minify ./deps/lit/src/index.js --bundle --outfile=./deps/lit/dist/index.js"
+    "build:lit": "esbuild --format=esm --minify ./deps/lit/src/index.js --bundle --outfile=./deps/lit/dist/index.js",
+    "build:mermaid": "rm -rf deps/mermaid/dist && mkdir -p deps/mermaid/dist/chunks && cp node_modules/mermaid/dist/mermaid.esm.min.mjs deps/mermaid/dist/mermaid.esm.min.mjs && cp -R node_modules/mermaid/dist/chunks/mermaid.esm.min deps/mermaid/dist/chunks/mermaid.esm.min && find deps/mermaid/dist -name '*.map' -delete"
   },
   "repository": {
     "type": "git",
@@ -43,6 +44,7 @@
   },
   "dependencies": {
     "esbuild": "^0.25.10",
-    "lit": "^3.3.1"
+    "lit": "^3.3.1",
+    "mermaid": "^11.16.0"
   }
 }

@@ -76,6 +76,7 @@ function decorateScheme(btn) {
     for (const section of sections) {
       setColorScheme(section);
     }
+    document.dispatchEvent(new CustomEvent('ak:scheme-change'));
   });
 }
 

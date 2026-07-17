@@ -1,5 +1,6 @@
 import { loadArea, setConfig } from './ak.js';
 import injectPageJsonLd from './utils/jsonld.js';
+import { isMermaidSource, extractMermaidSource } from './utils/mermaid-diagrams.js';
 
 const hostnames = ['authorkit.dev'];
 
@@ -50,7 +51,24 @@ function dimCodeComments(container) {
 
 function decorateCodeBlocks(parent) {
   const pres = parent.querySelectorAll('pre');
+  const diagrams = [];
+
   pres.forEach((pre) => {
+    const codeEl = pre.querySelector('code');
+    const raw = codeEl ? codeEl.textContent : pre.textContent;
+
+    if (isMermaidSource(raw)) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'mermaid-diagram-wrapper';
+      const container = document.createElement('div');
+      container.className = 'mermaid-diagram';
+      wrapper.append(container);
+      pre.parentNode.insertBefore(wrapper, pre);
+      pre.remove();
+      diagrams.push({ container, source: extractMermaidSource(raw) });
+      return;
+    }
+
     dimCodeComments(pre);
 
     const wrapper = document.createElement('div');
@@ -77,6 +95,12 @@ function decorateCodeBlocks(parent) {
       }
     });
   });
+
+  if (diagrams.length) {
+    import('./utils/mermaid-diagrams.js').then(({ default: renderMermaidDiagrams }) => {
+      renderMermaidDiagrams(diagrams);
+    });
+  }
 }
 
 // How to decorate an area before loading it
