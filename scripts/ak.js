@@ -1,3 +1,5 @@
+import { setColorScheme } from './utils/color-scheme.js';
+
 const log = async (ex, el) => (await import('./utils/error.js')).default(ex, el);
 
 export function getMetadata(name) {
@@ -233,6 +235,16 @@ function groupChildren(section) {
   return groups;
 }
 
+function decorateBackground(section) {
+  const { background } = section.dataset;
+  if (!background) return;
+  section.classList.add('has-background');
+  section.style.backgroundColor = background.startsWith('color-token')
+    ? `var(${background.replace('color-token', '--color')})`
+    : background;
+  setColorScheme(section);
+}
+
 function decorateSections(parent, isDoc) {
   const selector = isDoc ? 'main > div' : ':scope > div';
   return [...parent.querySelectorAll(selector)].map((section) => {
@@ -241,6 +253,7 @@ function decorateSections(parent, isDoc) {
 
     section.classList.add('section');
     section.dataset.status = 'decorated';
+    decorateBackground(section);
 
     section.widgets = decorateLinks(section);
     section.blocks = [...section.querySelectorAll('.block-content > div[class]')];

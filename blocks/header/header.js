@@ -1,6 +1,6 @@
 import { getConfig, getMetadata } from '../../scripts/ak.js';
 import { loadFragment } from '../fragment/fragment.js';
-import { setColorScheme } from '../section-metadata/section-metadata.js';
+import { setColorScheme } from '../../scripts/utils/color-scheme.js';
 
 const { locale } = getConfig();
 
