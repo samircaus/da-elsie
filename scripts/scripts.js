@@ -123,3 +123,9 @@ const afterSectionsDecorate = ({ area }) => decorateCodeBlocks(area);
   injectPageJsonLd();
   await loadArea();
 }());
+
+(() => {
+  const hasQE = new URL(window.location.href).searchParams.has('quick-edit');
+  // eslint-disable-next-line import/no-cycle
+  if (hasQE) import('../tools/quick-edit/quick-edit.js').then((mod) => mod.default());
+})();

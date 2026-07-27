@@ -7,7 +7,7 @@
 //
 // Usage:
 //   npm run qa:structured-data
-//   npm run qa:structured-data -- https://main--da-elsie--samircaus.aem.page/blog/some-post
+//   npm run qa:structured-data -- https://edgepatterns.dev/martech/some-post
 
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -18,22 +18,19 @@ import puppeteer from 'puppeteer-core';
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 const pkg = JSON.parse(readFileSync(path.join(rootDir, '..', 'package.json'), 'utf-8'));
 
-async function resolveDefaultTargets() {
-  const { origin } = new URL(pkg.homepage);
-  const targets = [{ label: 'homepage', url: pkg.homepage }];
+// Articles can live under any two-level section (/martech/*, /labs/*, /patterns/*,
+// /blog/*, ...) and there's no query index covering all of them, so auto-discovery
+// isn't possible. Keep at least one known-good article URL here as a smoke check,
+// and add more as new sections come online; override via CLI args for anything else.
+const KNOWN_ARTICLE_URLS = [
+  'https://edgepatterns.dev/martech/personalization-and-optimization',
+];
 
-  try {
-    const res = await fetch(`${origin}/blog/query-index.json`);
-    if (res.ok) {
-      const { data } = await res.json();
-      const first = data?.[0];
-      if (first?.path) targets.push({ label: 'blog post', url: new URL(first.path, origin).href });
-    }
-  } catch {
-    // no blog index reachable; homepage check still runs
-  }
-
-  return targets;
+function resolveDefaultTargets() {
+  return [
+    { label: 'homepage', url: pkg.homepage },
+    ...KNOWN_ARTICLE_URLS.map((url) => ({ label: 'article', url })),
+  ];
 }
 
 async function validateUrl(browser, url) {
@@ -68,7 +65,7 @@ async function validateUrl(browser, url) {
 
 async function main() {
   const cliTargets = process.argv.slice(2).map((url) => ({ label: url, url }));
-  const targets = cliTargets.length ? cliTargets : await resolveDefaultTargets();
+  const targets = cliTargets.length ? cliTargets : resolveDefaultTargets();
 
   const executablePath = Launcher.getInstallations()[0];
   if (!executablePath) {

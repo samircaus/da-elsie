@@ -39,6 +39,15 @@ export function isHomePage(pathname, locales = { '': {} }) {
   return Object.keys(locales).some((prefix) => prefix && path === prefix);
 }
 
+// Articles live two path segments deep under any section (e.g. /martech/some-post,
+// /labs/some-post, /patterns/some-post), regardless of locale prefix.
+export function isArticlePath(pathname, locales = { '': {} }) {
+  const path = pathname.replace(/\/$/, '');
+  const localePrefix = Object.keys(locales).find((prefix) => prefix && (path === prefix || path.startsWith(`${prefix}/`))) || '';
+  const rest = localePrefix ? path.slice(localePrefix.length) : path;
+  return rest.split('/').filter(Boolean).length === 2;
+}
+
 export function buildArticleSchema({
   title,
   description,
@@ -133,9 +142,10 @@ function injectJsonLd(data) {
 
 export default function injectPageJsonLd() {
   const pageUrl = window.location.href.split('#')[0];
-  const template = getMetadata('template');
+  const { pathname, origin } = window.location;
+  const { locales } = getConfig();
 
-  if (template === 'blog') {
+  if (isArticlePath(pathname, locales)) {
     const schema = buildArticleSchema({
       title: getMetadata('og:title') || document.title,
       description: getMetadata('description'),
@@ -149,10 +159,8 @@ export default function injectPageJsonLd() {
     return;
   }
 
-  const { locales } = getConfig();
-  if (!isHomePage(window.location.pathname, locales)) return;
+  if (!isHomePage(pathname, locales)) return;
 
-  const origin = window.location.origin;
   const siteName = getMetadata('og:site_name')
     || getMetadata('og:title')
     || document.title;

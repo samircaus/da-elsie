@@ -4,6 +4,7 @@ import {
   buildWebSiteSchema,
   getArticleSchemaIssues,
   getWebSiteSchemaIssues,
+  isArticlePath,
   isHomePage,
   parsePublicationDate,
   toAbsoluteUrl,
@@ -49,6 +50,34 @@ describe('JSON-LD utilities', () => {
       expect(isHomePage('/de', locales)).to.be.true;
       expect(isHomePage('/de/', locales)).to.be.true;
       expect(isHomePage('/de/blog/post', locales)).to.be.false;
+    });
+  });
+
+  describe('isArticlePath', () => {
+    const locales = {
+      '': { lang: 'en' },
+      '/de': { lang: 'de' },
+    };
+
+    it('detects any two-level section path as an article', () => {
+      expect(isArticlePath('/martech/personalization-and-optimization', locales)).to.be.true;
+      expect(isArticlePath('/labs/some-post', locales)).to.be.true;
+      expect(isArticlePath('/patterns/some-post', locales)).to.be.true;
+      expect(isArticlePath('/blog/some-post', locales)).to.be.true;
+    });
+
+    it('ignores the homepage and single-level section pages', () => {
+      expect(isArticlePath('/', locales)).to.be.false;
+      expect(isArticlePath('/martech', locales)).to.be.false;
+    });
+
+    it('ignores paths deeper than two levels', () => {
+      expect(isArticlePath('/martech/some-post/extra', locales)).to.be.false;
+    });
+
+    it('accounts for a locale prefix', () => {
+      expect(isArticlePath('/de/martech/some-post', locales)).to.be.true;
+      expect(isArticlePath('/de/martech', locales)).to.be.false;
     });
   });
 
