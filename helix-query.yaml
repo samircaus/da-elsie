@@ -10,7 +10,7 @@ indices:
       - /labs/**
     exclude:
       - "**/fragments/**"
-      - "/de/fragments/**"
+      - "/de/**"
       - "/footer"
       - "**/drafts/**"
       - "**/*.json"
