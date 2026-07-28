@@ -5,7 +5,7 @@ const FOOTER_PATH = '/fragments/nav/footer';
 
 /**
  * Decorates social media links with icons
- * @param {Element} fragment The footer fragment
+ * @param {Element} fragment The footer legal section
  */
 function decorateSocialLinks(fragment) {
   const links = fragment.querySelectorAll('a[href]');
@@ -16,18 +16,24 @@ function decorateSocialLinks(fragment) {
         d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" />
     </svg>`,
     linkedin: `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
-      <path fill="currentColor" 
+      <path fill="currentColor"
         d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
     </svg>`,
+    website: `<svg viewBox="0 0 496 512" xmlns="http://www.w3.org/2000/svg" width="20" height="20">
+      <path fill="currentColor"
+        d="M336.5 160C322 70.7 287.8 8 248 8s-74 62.7-88.5 152h177zM152 256c0 22.2 1.2 43.5 3.3 64h185.3c2.1-20.5 3.3-41.8 3.3-64s-1.2-43.5-3.3-64H155.3c-2.1 20.5-3.3 41.8-3.3 64zm324.7-96c-28.6-67.9-86.5-120.4-158-141.6 24.4 33.8 41.2 84.8 50 141.6h108zM177.2 18.4C105.8 39.6 47.8 92.1 19.3 160h108c8.7-56.8 25.5-107.8 49.9-141.6zM487.4 192H372.7c2.1 21 3.3 42.5 3.3 64s-1.2 43-3.3 64h114.7c5.5-20.5 8.6-41.8 8.6-64s-3.1-43.5-8.6-64zM120 256c0-21.5 1.2-43 3.3-64H8.6C3.1 212.5 0 233.8 0 256s3.1 43.5 8.6 64h114.7c-2.1-21-3.3-42.5-3.3-64zm39.5 96c14.5 89.3 48.7 152 88.5 152s74-62.7 88.5-152h-177zm159.3 141.6c71.4-21.2 129.4-73.7 158-141.6h-108c-8.8 56.8-25.6 107.8-50 141.6zM19.3 352c28.6 67.9 86.5 120.4 158 141.6-24.4-33.8-41.2-84.8-49.9-141.6h-108z"/>
+    </svg>`,
   };
-  
+
   links.forEach((link) => {
     const href = link.getAttribute('href');
-    
+
     if (href.includes('github.com')) {
       link.insertAdjacentHTML('beforeend', icons.github);
     } else if (href.includes('linkedin.com')) {
       link.insertAdjacentHTML('beforeend', icons.linkedin);
+    } else {
+      link.insertAdjacentHTML('beforeend', icons.website);
     }
   });
 }
@@ -52,7 +58,7 @@ export default async function init(el) {
     const legal = sections.pop();
     legal.classList.add('section-legal');
 
-    decorateSocialLinks(fragment);
+    decorateSocialLinks(legal);
 
     el.append(fragment);
   } catch (e) {
