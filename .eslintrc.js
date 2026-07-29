@@ -19,6 +19,12 @@ module.exports = {
       env: { browser: true, node: true },
       rules: { 'no-console': 0 },
     },
+    {
+      // Cloudflare Workers runtime, not a browser: HTMLRewriter is a Workers-only global.
+      files: ['workers/**/*.js'],
+      env: { browser: false },
+      globals: { HTMLRewriter: 'readonly' },
+    },
   ],
   rules: {
     'no-param-reassign': [2, { props: false }],

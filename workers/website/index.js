@@ -114,6 +114,30 @@ const getSchedule = async (pathname, response) => {
 
 const getCachability = ({ pathname }) => !(pathname.includes('/schedules/') && pathname.endsWith('json'));
 
+// The first image in main is always the page's LCP candidate. The document pipeline
+// ships it with loading="lazy" (fine for every other image), which stops the browser's
+// preload scanner from discovering it early. Client JS promotes it to eager+high-priority
+// too, but only after the scanner has already passed it over, so fix it at the edge.
+class LCPImagePromoter {
+  promoted = false;
+
+  element(el) {
+    if (this.promoted) return;
+    this.promoted = true;
+    el.removeAttribute('loading');
+    el.setAttribute('fetchpriority', 'high');
+  }
+}
+
+const isDocumentRequest = (req, resp) => req.method === 'GET'
+  && req.headers.get('sec-fetch-dest') === 'document'
+  && resp.status === 200
+  && (resp.headers.get('content-type') || '').includes('text/html');
+
+const promoteLCPImage = (resp) => new HTMLRewriter()
+  .on('main img', new LCPImagePromoter())
+  .transform(resp);
+
 const fetchFromOrigin = async (req, cacheEverything, savedSearch) => {
   let resp = await fetch(req, { method: req.method, cf: { cacheEverything } });
   resp = new Response(resp.body, resp);
@@ -154,6 +178,8 @@ export default {
 
     const scheduleResp = await getSchedule(url.pathname, originResp);
     if (scheduleResp) return scheduleResp;
+
+    if (isDocumentRequest(req, originResp)) return promoteLCPImage(originResp);
 
     return originResp;
   },

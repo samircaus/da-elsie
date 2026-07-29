@@ -8,3 +8,7 @@ helix-importer-ui
 *.bak
 .idea
 .wrangler
+
+.hlx/.da-token.json
+
+content

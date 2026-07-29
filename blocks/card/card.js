@@ -1,3 +1,13 @@
+import { createPicture } from '../../scripts/utils/picture.js';
+
+// Cards never render wider than ~1 grid column, so the platform's default
+// 750/2000px breakpoints are far larger than the thumbnail is ever displayed at.
+const CARD_BREAKPOINTS = [
+  { media: '(min-width: 1200px)', width: '450' },
+  { media: '(min-width: 900px)', width: '600' },
+  { width: '900' },
+];
+
 export default function init(el) {
   const inner = el.querySelector(':scope > div');
   inner.classList.add('card-inner');
@@ -5,9 +15,13 @@ export default function init(el) {
   if (pic) {
     const picPara = pic.closest('p');
     if (picPara) {
+      const img = pic.querySelector('img');
+      const picture = img
+        ? createPicture({ src: img.src, alt: img.alt, breakpoints: CARD_BREAKPOINTS, optimize: 'high' })
+        : pic;
       const picDiv = document.createElement('div');
       picDiv.className = 'card-picture-container';
-      picDiv.append(pic);
+      picDiv.append(picture);
       inner.insertAdjacentElement('afterbegin', picDiv);
       picPara.remove();
     }
