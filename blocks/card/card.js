@@ -31,9 +31,14 @@ export default function init(el) {
   if (!con) return;
   con.classList.add('card-content-container');
 
-  // Find link in content and make whole card clickable (link is not displayed)
-  const cta = inner.querySelector('a');
-  if (!cta) return;
+  // Find a dedicated CTA paragraph (one containing nothing but a link) and make the
+  // whole card clickable. Inline links inside body copy must be left alone.
+  const ctaPara = [...inner.querySelectorAll('p')].find((p) => {
+    const a = p.querySelector(':scope > a');
+    return a && [...p.childNodes].every((node) => node === a || !node.textContent.trim());
+  });
+  if (!ctaPara) return;
+  const cta = ctaPara.querySelector(':scope > a');
   let href = cta.getAttribute('href');
   if (!href) return;
   const hashAware = el.classList.contains('hash-aware');
@@ -41,8 +46,7 @@ export default function init(el) {
     href = `${href}${window.location.hash}`;
   }
   // Remove the paragraph that contains the link so it is not rendered
-  const ctaPara = cta.closest('p');
-  if (ctaPara) ctaPara.remove();
+  ctaPara.remove();
 
   // Wrap entire card inner in the link
   const link = document.createElement('a');
