@@ -950,6 +950,14 @@ body.article-page main .section > .default-content:not(:has(.hero)) {
     font-family: var(--font-family);
     font-size: 18px;
     line-height: 1.7;
+    overflow-wrap: anywhere;
+  }
+
+  /* Long URLs / wildcard surface identifiers must wrap inside the reading column. */
+  a,
+  code {
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   > p,
