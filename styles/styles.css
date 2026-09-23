@@ -391,10 +391,19 @@ a {
 }
 
 /* Keep standalone action paragraphs together without affecting inline links. */
-.default-content > p:has(> a.btn:only-child) {
-  display: inline-block;
-  margin: 0 24px 12px 0;
-  vertical-align: top;
+.default-content:has(> p > a.btn:only-child) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.default-content:has(> p > a.btn:only-child) > p {
+  margin: 0;
+}
+
+.section:has(> .default-content:has(> p > a.btn:only-child)) {
+  padding-bottom: 24px;
 }
 
 img {
@@ -779,7 +788,7 @@ div[data-status] {
   padding-bottom: 56px;
 }
 
-.section:has(> .default-content + .block-content:has(.card)) > .block-content {
+.section:has(> .default-content + .block-content) > .block-content {
   margin-top: 24px;
 }
 
