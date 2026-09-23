@@ -867,8 +867,15 @@ body:has(main .hero.top) {
   }
 }
 
-.section:has(> .block-content:has(.card)) + .section > .default-content {
+/* Keep the heading after a card section visually separated from the cards.
+ * Put the space on the following section itself so heading margins cannot
+ * collapse through the section boundary. */
+.section:has(> .block-content:has(.card)) + .section {
   padding-top: 56px;
+}
+
+.section:has(> .block-content:has(.card)) + .section > .default-content > :first-child {
+  margin-top: 0;
 }
 
 /* Long-form article content keeps a focused reading measure across article routes. */
