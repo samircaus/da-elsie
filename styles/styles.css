@@ -813,7 +813,7 @@ div[data-status] {
 /* Patterns uses a quieter editorial layout than the default landing blocks. */
 body:has(main .hero.top) {
   main {
-    background-color: var(--color-beige-50);
+    background-color: light-dark(var(--color-beige-50), var(--color-dark));
   }
 
   .section {
@@ -838,7 +838,7 @@ body:has(main .hero.top) {
   }
 
   .hero.top {
-    background-color: var(--color-beige-100);
+    background-color: light-dark(var(--color-beige-100), var(--color-gray-800));
 
     &::before {
       background: linear-gradient(135deg, rgb(193 66 63 / 4%), transparent 65%);
