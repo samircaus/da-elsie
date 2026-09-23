@@ -393,7 +393,7 @@ a {
 /* Keep standalone action paragraphs together without affecting inline links. */
 .default-content > p:has(> a.btn:only-child) {
   display: inline-block;
-  margin: 0 12px 12px 0;
+  margin: 0 24px 12px 0;
   vertical-align: top;
 }
 
@@ -765,7 +765,7 @@ svg {
 
 @media (width >= 1440px) {
   :root {
-    --grid-container-width: 1200px;
+    --grid-container-width: 1280px;
   }
 }
 
@@ -773,6 +773,30 @@ main > div,
 .has-template,
 div[data-status] {
   display: none;
+}
+
+.section:has(.card) {
+  padding-bottom: 56px;
+}
+
+@media (width >= 600px) {
+  .section:has(.card) > .block-content {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (width >= 900px) {
+  .section:has(.card) > .block-content {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (width >= 1200px) {
+  .section:has(.card) > .block-content {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 /* Patterns uses a quieter editorial layout than the default landing blocks. */
@@ -787,19 +811,13 @@ body:has(main .hero.top) {
     }
 
     &:has(.card) {
-      padding: 40px 0 0;
+      padding-top: 40px;
 
       h2 {
         margin: 0 0 24px;
         color: var(--color-dark);
         font-size: var(--heading-font-size-xl);
         text-align: left;
-      }
-
-      .block-content {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 24px;
       }
     }
 
@@ -853,7 +871,7 @@ body.article-page main .section > .block-content:has(> .callout) {
 }
 
 body.article-page main .section > .default-content:not(:has(.hero)) {
-  --article-column-width: 760px;
+  --article-column-width: 820px;
 
   max-width: var(--article-column-width);
   padding-inline: 20px;
