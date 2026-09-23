@@ -235,7 +235,7 @@ header {
       display: block;
       line-height: 64px;
       font-weight: 700;
-      color: var(--color-dark);
+      color: light-dark(var(--color-dark), var(--color-light));
       position: relative;
 
       &.is-active {
