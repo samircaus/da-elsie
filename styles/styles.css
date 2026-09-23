@@ -779,6 +779,10 @@ div[data-status] {
   padding-bottom: 56px;
 }
 
+.section:has(> .default-content + .block-content:has(.card)) > .block-content {
+  margin-top: 24px;
+}
+
 @media (width >= 600px) {
   .section:has(.card) > .block-content {
     display: grid;
