@@ -150,11 +150,13 @@ function decorateArticleNavigation(articles) {
 (async function loadPage() {
   setConfig({ hostnames, locales, widgets, components, decorateArea, afterSectionsDecorate });
   injectPageJsonLd();
-  const articlePath = /^\/(architecture|labs|martech|personalization|tools)(\/|$)/;
-  if (articlePath.test(window.location.pathname)) {
+  const articlePath = /^\/(architecture|labs|martech|personalization|tools)\/[^/]+\/?$/;
+  const isArticlePage = articlePath.test(window.location.pathname);
+  if (isArticlePage) {
     document.body.classList.add('article-page');
   }
   await loadArea();
+  if (!isArticlePage) return;
   const articles = [...document.querySelectorAll('main .section > .default-content')]
     .filter((content) => !content.querySelector('.hero')
       && content.querySelector('h1, h2, h3'));
