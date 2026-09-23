@@ -822,7 +822,7 @@ body:has(main .hero.top) {
     }
 
     &:has(.card) {
-      padding-top: 40px;
+      padding-top: 64px;
 
       h2 {
         margin: 0 0 24px;
