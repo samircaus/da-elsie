@@ -189,9 +189,22 @@ function decorateBrandSection(section) {
   
   const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   icon.classList.add('icon', 'icon-hamburger');
-  const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-  use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', '/img/icons/hamburger.svg#hamburger');
-  icon.appendChild(use);
+  icon.setAttribute('viewBox', '0 0 256 256');
+  icon.setAttribute('aria-hidden', 'true');
+  [
+    [32, 64, 192, 16],
+    [32, 120, 192, 16],
+    [32, 176, 192, 16],
+  ].forEach(([x, y, width, height]) => {
+    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    rect.setAttribute('x', x);
+    rect.setAttribute('y', y);
+    rect.setAttribute('width', width);
+    rect.setAttribute('height', height);
+    rect.setAttribute('rx', '8');
+    rect.setAttribute('fill', 'currentColor');
+    icon.appendChild(rect);
+  });
   
   btn.appendChild(icon);
   mobileToggle.appendChild(btn);
