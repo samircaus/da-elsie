@@ -826,7 +826,7 @@ body:has(main .hero.top) {
 
       h2 {
         margin: 0 0 24px;
-        color: var(--color-dark);
+        color: light-dark(var(--color-dark), var(--color-light));
         font-size: var(--heading-font-size-xl);
         text-align: left;
       }
@@ -885,7 +885,7 @@ body:has(main .hero.top) {
 body.article-page,
 body.article-page main,
 body.article-page main .section {
-  background-color: var(--color-light);
+  background-color: light-dark(var(--color-light), var(--color-dark));
 }
 
 html:has(body.article-page) {
@@ -912,14 +912,33 @@ body.article-page main .section > .block-content:has(> .table) {
 body.article-page main .section > .default-content:not(:has(.hero)) {
   --article-column-width: 820px;
 
+  width: min(100%, var(--article-column-width));
   max-width: var(--article-column-width);
+  box-sizing: border-box;
   padding-inline: 20px;
   text-align: left;
+
+  > * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  img,
+  video,
+  iframe,
+  svg {
+    max-width: 100%;
+  }
+
+  pre {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
 
   > h1,
   > h2 {
     margin: 48px 0 24px;
-    color: var(--color-dark);
+    color: light-dark(var(--color-dark), var(--color-light));
     font-size: 40px;
     font-weight: 600;
     line-height: 1.15;
@@ -941,14 +960,14 @@ body.article-page main .section > .default-content:not(:has(.hero)) {
 
   h2 {
     margin: 44px 0 16px;
-    color: var(--color-dark);
+    color: light-dark(var(--color-dark), var(--color-light));
     font-size: 30px;
     line-height: 1.2;
   }
 
   h3 {
     margin: 40px 0 16px;
-    color: var(--color-dark);
+    color: light-dark(var(--color-dark), var(--color-light));
     font-size: 22px;
   }
 
@@ -961,12 +980,12 @@ body.article-page main .section > .default-content:not(:has(.hero)) {
     margin: 0 0 32px;
     padding: 12px 16px;
     border-left: 3px solid var(--color-brand);
-    background-color: var(--color-beige-100);
+    background-color: light-dark(var(--color-beige-100), var(--color-gray-800));
     font-size: 14px;
     line-height: 1.4;
 
     strong {
-      color: var(--color-dark);
+      color: light-dark(var(--color-dark), var(--color-light));
     }
 
     ul {
@@ -988,14 +1007,15 @@ body.article-page main .section > .default-content:not(:has(.hero)) {
     overflow-x: auto;
 
     pre {
-      min-width: max-content;
+      min-width: 0;
+      width: 100%;
       padding: 16px 20px;
       font-size: 15px;
       line-height: 1.55;
     }
 
     .code-comment {
-      color: var(--color-gray-700);
+      color: light-dark(var(--color-gray-700), var(--color-gray-400));
       opacity: 1;
     }
   }
