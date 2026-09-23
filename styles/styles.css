@@ -1025,6 +1025,7 @@ body.article-page main .section > .default-content:not(:has(.hero)) {
         }
 
         a {
+          color: light-dark(var(--color-rust-600), var(--color-rust-300));
           text-decoration: none;
 
           &:hover {
