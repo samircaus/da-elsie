@@ -867,18 +867,9 @@ body:has(main .hero.top) {
   }
 }
 
-/* Card sections need explicit separation from the content that follows.
- * Apply it to the card section itself; this does not depend on the exact
- * wrapper structure of the following authored section. */
-.section:has(.card) {
-  margin-bottom: 56px;
-}
-
-/* Avoid doubling the gap when the next section starts with a heading whose
- * global top margin would otherwise collapse into the section boundary. */
-.section:has(.card) + .section > .default-content > :first-child {
-  margin-top: 0;
-}
+/* Card sections already carry bottom padding. On landing pages, the next
+ * card section also carries top padding, giving section headings a consistent
+ * 64px lead-in without relying on adjacent-sibling structure. */
 
 /* Long-form article content keeps a focused reading measure across article routes. */
 /* stylelint-disable no-descending-specificity */
