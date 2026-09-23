@@ -864,6 +864,10 @@ body.article-page main .section {
   background-color: var(--color-light);
 }
 
+html:has(body.article-page) {
+  scroll-behavior: smooth;
+}
+
 body.article-page main .section > .block-content:has(> .callout) {
   max-width: 760px;
   margin-inline: auto;
@@ -911,6 +915,11 @@ body.article-page main .section > .default-content:not(:has(.hero)) {
     margin: 40px 0 16px;
     color: var(--color-dark);
     font-size: 22px;
+  }
+
+  h2,
+  h3 {
+    scroll-margin-top: calc(var(--header-height) + 24px);
   }
 
   .on-this-page {
