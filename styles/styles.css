@@ -822,7 +822,7 @@ body:has(main .hero.top) {
     }
 
     &:has(.card) {
-      padding-top: 64px;
+      padding-top: 40px;
 
       h2 {
         margin: 0 0 24px;
@@ -835,6 +835,12 @@ body:has(main .hero.top) {
     &:has(.hero.top) {
       padding: 0;
     }
+  }
+
+  /* A card section followed by another card section needs a visible section break.
+   * Keep this separate from the first section's hero-to-title spacing. */
+  .section:has(.card) + .section:has(.card) {
+    padding-top: 64px;
   }
 
   .hero.top {
