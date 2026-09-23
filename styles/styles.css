@@ -867,14 +867,16 @@ body:has(main .hero.top) {
   }
 }
 
-/* Keep the heading after a card section visually separated from the cards.
- * Put the space on the following section itself so heading margins cannot
- * collapse through the section boundary. */
-.section:has(> .block-content:has(.card)) + .section {
-  padding-top: 56px;
+/* Card sections need explicit separation from the content that follows.
+ * Apply it to the card section itself; this does not depend on the exact
+ * wrapper structure of the following authored section. */
+.section:has(.card) {
+  margin-bottom: 56px;
 }
 
-.section:has(> .block-content:has(.card)) + .section > .default-content > :first-child {
+/* Avoid doubling the gap when the next section starts with a heading whose
+ * global top margin would otherwise collapse into the section boundary. */
+.section:has(.card) + .section > .default-content > :first-child {
   margin-top: 0;
 }
 
