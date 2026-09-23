@@ -118,10 +118,54 @@ const decorateArea = ({ area = document }) => {
 // Run after sections are grouped so code-block-wrapper stays inside default-content (not treated as a block)
 const afterSectionsDecorate = ({ area }) => decorateCodeBlocks(area);
 
+function decorateArticleNavigation(article) {
+  const headings = [...article.querySelectorAll('h2')];
+  if (!headings.length) return;
+
+  const navigation = document.createElement('nav');
+  navigation.className = 'on-this-page';
+  navigation.setAttribute('aria-label', 'On this page');
+  const title = document.createElement('strong');
+  title.textContent = 'On this page';
+  navigation.append(title);
+
+  const list = document.createElement('ul');
+  for (const heading of headings) {
+    if (!heading.id) {
+      heading.id = heading.textContent.toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/(^-|-$)/g, '');
+    }
+    const item = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = `#${heading.id}`;
+    link.textContent = heading.textContent;
+    item.append(link);
+    list.append(item);
+  }
+  navigation.append(list);
+  article.querySelector('h1')?.after(navigation);
+}
+
 (async function loadPage() {
   setConfig({ hostnames, locales, widgets, components, decorateArea, afterSectionsDecorate });
   injectPageJsonLd();
+  const articlePath = /^\/(architecture|labs|martech|personalization|tools)(\/|$)/;
+  if (articlePath.test(window.location.pathname)) {
+    document.body.classList.add('article-page');
+  }
   await loadArea();
+  const article = [...document.querySelectorAll('main .section > .default-content')]
+    .find((content) => content.querySelector('h1:not(.hero-heading)'));
+  if (article) {
+    const articleSection = article.closest('.section');
+    const previousSection = articleSection?.previousElementSibling;
+    if (previousSection?.querySelector('.hero')) {
+      article.querySelector(':scope > h1')?.remove();
+    }
+    article.classList.add('article-content');
+    decorateArticleNavigation(article);
+  }
 }());
 
 (() => {
