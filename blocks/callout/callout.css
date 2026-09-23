@@ -9,14 +9,14 @@
   --callout-gap: 0.75rem;
   --callout-padding: 1rem 1.25rem;
   --callout-radius: 8px;
-  --callout-note-bg: #f0f6fc;
-  --callout-note-border: #0969da;
-  --callout-tip-bg: #dafbe1;
-  --callout-tip-border: #1a7f37;
-  --callout-warning-bg: #fff8c5;
-  --callout-warning-border: #9a6700;
-  --callout-info-bg: #eae6ff;
-  --callout-info-border: #8250df;
+  --callout-note-bg: light-dark(#f0f6fc, #17263a);
+  --callout-note-border: light-dark(#0969da, #58a6ff);
+  --callout-tip-bg: light-dark(#dafbe1, #173527);
+  --callout-tip-border: light-dark(#1a7f37, #56d364);
+  --callout-warning-bg: light-dark(#fff8c5, #3b3015);
+  --callout-warning-border: light-dark(#9a6700, #d29922);
+  --callout-info-bg: light-dark(#eae6ff, #2b2340);
+  --callout-info-border: light-dark(#8250df, #a371f7);
 }
 
 .callout__inner {
@@ -27,6 +27,7 @@
   border-radius: var(--callout-radius);
   border-inline-start: var(--callout-border-width) solid;
   position: relative;
+  color: var(--color-text);
 }
 
 /* Type variants (background + border) */
