@@ -150,7 +150,7 @@ function decorateArticleNavigation(articles) {
 (async function loadPage() {
   setConfig({ hostnames, locales, widgets, components, decorateArea, afterSectionsDecorate });
   injectPageJsonLd();
-  const articlePath = /^\/(architecture|labs|martech|personalization|tools)\/[^/]+\/?$/;
+  const articlePath = /^\/(architecture|labs|martech|personalization|tools|agentic-ai)\/[^/]+\/?$/;
   const isArticlePage = articlePath.test(window.location.pathname);
   if (isArticlePage) {
     document.body.classList.add('article-page');
