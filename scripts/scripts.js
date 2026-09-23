@@ -118,8 +118,8 @@ const decorateArea = ({ area = document }) => {
 // Run after sections are grouped so code-block-wrapper stays inside default-content (not treated as a block)
 const afterSectionsDecorate = ({ area }) => decorateCodeBlocks(area);
 
-function decorateArticleNavigation(article) {
-  const headings = [...article.querySelectorAll('h2')];
+function decorateArticleNavigation(articles) {
+  const headings = articles.flatMap((article) => [...article.querySelectorAll('h2')]);
   if (!headings.length) return;
 
   const navigation = document.createElement('nav');
@@ -144,7 +144,7 @@ function decorateArticleNavigation(article) {
     list.append(item);
   }
   navigation.append(list);
-  article.querySelector('h1')?.after(navigation);
+  articles[0].querySelector('h1, h2, h3')?.after(navigation);
 }
 
 (async function loadPage() {
@@ -155,16 +155,20 @@ function decorateArticleNavigation(article) {
     document.body.classList.add('article-page');
   }
   await loadArea();
-  const article = [...document.querySelectorAll('main .section > .default-content')]
-    .find((content) => content.querySelector('h1:not(.hero-heading)'));
-  if (article) {
+  const articles = [...document.querySelectorAll('main .section > .default-content')]
+    .filter((content) => !content.querySelector('.hero')
+      && content.querySelector('h1, h2, h3'));
+  if (articles.length) {
+    const article = articles[0];
     const articleSection = article.closest('.section');
     const previousSection = articleSection?.previousElementSibling;
     if (previousSection?.querySelector('.hero')) {
       article.querySelector(':scope > h1')?.remove();
     }
-    article.classList.add('article-content');
-    decorateArticleNavigation(article);
+    for (const articleSectionContent of articles) {
+      articleSectionContent.classList.add('article-content');
+    }
+    decorateArticleNavigation(articles);
   }
 }());
 
