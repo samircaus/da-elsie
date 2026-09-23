@@ -235,6 +235,22 @@ header {
       display: block;
       line-height: 64px;
       font-weight: 700;
+      color: var(--color-dark);
+      position: relative;
+
+      &.is-active {
+        color: var(--color-brand);
+
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 12px;
+          height: 2px;
+          background-color: currentcolor;
+        }
+      }
     }
 
     /* Hide mega menus on mobile - show simple navigation only */

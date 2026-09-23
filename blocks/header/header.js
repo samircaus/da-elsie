@@ -131,7 +131,14 @@ function decorateMegaMenu(li) {
 function decorateNavItem(li) {
   li.classList.add('main-nav-item');
   const link = li.querySelector(':scope > p > a');
-  if (link) link.classList.add('main-nav-link');
+  if (link) {
+    link.classList.add('main-nav-link');
+    const linkUrl = new URL(link.href, window.location.href);
+    if (linkUrl.pathname.replace(/\/$/, '') === window.location.pathname.replace(/\/$/, '')) {
+      link.classList.add('is-active');
+      link.setAttribute('aria-current', 'page');
+    }
+  }
   const menu = decorateMegaMenu(li) || decorateMenu(li);
   if (!(menu || link)) return;
   

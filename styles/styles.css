@@ -390,6 +390,19 @@ a {
   }
 }
 
+/* Keep standalone action paragraphs together without affecting inline links. */
+.default-content:has(> p > a.btn:only-child) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+  padding-bottom: 24px;
+}
+
+.default-content:has(> p > a.btn:only-child) > p {
+  margin: 0;
+}
+
 img {
   width: 100%;
   height: auto;
@@ -404,6 +417,7 @@ img {
   display: block;
   padding: var(--top-bottom-spacing) 0;
 
+  /* stylelint-disable-next-line no-descending-specificity */
   > .default-content {
     max-width: var(--grid-container-width);
     margin: 0 auto;
@@ -758,7 +772,7 @@ svg {
 
 @media (width >= 1440px) {
   :root {
-    --grid-container-width: 1200px;
+    --grid-container-width: 1280px;
   }
 }
 
@@ -766,6 +780,257 @@ main > div,
 .has-template,
 div[data-status] {
   display: none;
+}
+
+.section:has(.card) {
+  padding-bottom: 56px;
+}
+
+.section:has(> .default-content + .block-content) > .block-content {
+  margin-top: 24px;
+}
+
+@media (width >= 600px) {
+  .section:has(.card) > .block-content {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+  }
+}
+
+@media (width >= 900px) {
+  .section:has(.card) > .block-content {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (width >= 1200px) {
+  .section:has(.card) > .block-content {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Patterns uses a quieter editorial layout than the default landing blocks. */
+body:has(main .hero.top) {
+  main {
+    background-color: var(--color-beige-50);
+  }
+
+  .section {
+    > .default-content {
+      max-width: var(--grid-container-width);
+    }
+
+    &:has(.card) {
+      padding-top: 40px;
+
+      h2 {
+        margin: 0 0 24px;
+        color: var(--color-dark);
+        font-size: var(--heading-font-size-xl);
+        text-align: left;
+      }
+    }
+
+    &:has(.hero.top) {
+      padding: 0;
+    }
+  }
+
+  .hero.top {
+    background-color: var(--color-beige-100);
+
+    &::before {
+      background: linear-gradient(135deg, rgb(193 66 63 / 4%), transparent 65%);
+    }
+
+    .hero-foreground {
+      min-height: 0;
+      padding: 64px 0 72px;
+      align-items: flex-start;
+
+      .hero-heading {
+        max-width: 720px;
+        margin: 0;
+        font-size: 48px;
+        line-height: 1.08;
+      }
+
+      p {
+        max-width: 65ch;
+        margin: 20px 0 0;
+        font-size: 20px;
+        line-height: 1.5;
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+.section:has(> .block-content:has(.card)) + .section > .default-content {
+  padding-top: 56px;
+}
+
+/* Long-form article content keeps a focused reading measure across article routes. */
+/* stylelint-disable no-descending-specificity */
+body.article-page,
+body.article-page main,
+body.article-page main .section {
+  background-color: var(--color-light);
+}
+
+html:has(body.article-page) {
+  scroll-behavior: smooth;
+}
+
+body.article-page main .section > .block-content:has(> .callout) {
+  max-width: 760px;
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+body.article-page main .section > .block-content:has(> .table) {
+  max-width: 820px;
+  margin-inline: auto;
+  padding-inline: 20px;
+
+  .table {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+body.article-page main .section > .default-content:not(:has(.hero)) {
+  --article-column-width: 820px;
+
+  max-width: var(--article-column-width);
+  padding-inline: 20px;
+  text-align: left;
+
+  > h1,
+  > h2 {
+    margin: 48px 0 24px;
+    color: var(--color-dark);
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.15;
+    text-align: left;
+  }
+
+  p,
+  li {
+    font-family: var(--font-family);
+    font-size: 18px;
+    line-height: 1.7;
+  }
+
+  > p,
+  > ol,
+  > ul {
+    margin: 0 0 22px;
+  }
+
+  h2 {
+    margin: 44px 0 16px;
+    color: var(--color-dark);
+    font-size: 30px;
+    line-height: 1.2;
+  }
+
+  h3 {
+    margin: 40px 0 16px;
+    color: var(--color-dark);
+    font-size: 22px;
+  }
+
+  h2,
+  h3 {
+    scroll-margin-top: calc(var(--header-height) + 24px);
+  }
+
+  .on-this-page {
+    margin: 0 0 32px;
+    padding: 12px 16px;
+    border-left: 3px solid var(--color-brand);
+    background-color: var(--color-beige-100);
+    font-size: 14px;
+    line-height: 1.4;
+
+    strong {
+      color: var(--color-dark);
+    }
+
+    ul {
+      display: grid;
+      gap: 2px;
+      margin: 8px 0 0;
+      padding-left: 20px;
+
+      li {
+        margin: 0;
+        line-height: 1.4;
+      }
+    }
+  }
+
+  .code-block-wrapper {
+    max-width: 100%;
+    margin: 24px 0;
+    overflow-x: auto;
+
+    pre {
+      min-width: max-content;
+      padding: 16px 20px;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .code-comment {
+      color: var(--color-gray-700);
+      opacity: 1;
+    }
+  }
+}
+
+@media (width < 600px) {
+  body.article-page main .section > .default-content:not(:has(.hero)) {
+    > h1 {
+      font-size: 34px;
+    }
+
+    h2 {
+      font-size: 28px;
+    }
+  }
+}
+/* stylelint-enable no-descending-specificity */
+
+@media (width < 900px) {
+  body:has(main .hero.top) {
+    .section:has(.card) .block-content {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .hero.top .hero-foreground {
+      padding: 56px 0;
+
+      .hero-heading {
+        font-size: 40px;
+      }
+    }
+  }
+}
+
+@media (width < 600px) {
+  body:has(main .hero.top) {
+    .section:has(.card) .block-content {
+      grid-template-columns: 1fr;
+    }
+
+    .hero.top .hero-foreground .hero-heading {
+      font-size: 36px;
+    }
+  }
 }
 
 aem-sidekick {
