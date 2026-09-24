@@ -18,7 +18,11 @@ const locales = {
 const widgets = [
   { fragment: '/fragments/' },
   { schedule: '/schedules/' },
+  { youtube: 'https://youtu.be' },
+  { youtube: 'https://m.youtube.com' },
+  { youtube: 'https://youtube.com' },
   { youtube: 'https://www.youtube' },
+  { youtube: 'https://www.youtube-nocookie.com' },
 ];
 
 // Blocks with self-managed styles
