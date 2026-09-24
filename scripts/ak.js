@@ -279,7 +279,7 @@ function decorateHeader() {
   if (breadcrumbs) header.append(breadcrumbs);
 }
 
-export async function loadArea({ area } = { area: document }) {
+export async function loadArea({ area = document } = {}) {
   decoratePictures(area);
   const { decorateArea } = getConfig();
   if (decorateArea) decorateArea({ area });

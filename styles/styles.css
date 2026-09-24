@@ -604,7 +604,7 @@ h6 {
   color: var(--color-brand);
   font-weight: 600;
   line-height: var(--heading-line-height);
-  margin-top: 3em;
+  margin-top: 1em;
   margin-bottom: 0.75em;
 }
 
@@ -616,31 +616,46 @@ h1 {
 
 h2 { 
   font-size: var(--heading-font-size-xl);
-  margin-top: 3em;
+  margin-top: 2em;
   margin-bottom: 0.85em;
+}
+
+h2 a {
+  color: light-dark(var(--color-dark), var(--color-light));
+  text-decoration: none;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-brand);
+    text-decoration: underline;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
 }
 
 h3 { 
   font-size: var(--heading-font-size-l);
-  margin-top: 2.5em;
+  margin-top: 1.5em;
   margin-bottom: 0.75em;
 }
 
 h4 { 
   font-size: var(--heading-font-size-m);
-  margin-top: 2.25em;
   margin-bottom: 0.65em;
 }
 
 h5 { 
   font-size: var(--heading-font-size-s);
-  margin-top: 2em;
   margin-bottom: 0.6em;
 }
 
 h6 { 
   font-size: var(--heading-font-size-xs);
-  margin-top: 2em;
   margin-bottom: 0.6em;
 }
 
@@ -756,6 +771,20 @@ svg {
   width: auto;
   max-width: 100%;
   height: auto;
+  overflow: visible;
+}
+
+.mermaid-diagram foreignObject {
+  overflow: visible;
+}
+
+:where(.mermaid-diagram [class~="nodeLabel"], .mermaid-diagram [class~="nodeLabel"] p) {
+  margin: 0;
+  color: inherit;
+  font-size: 16px;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .mermaid-diagram-error {
@@ -782,6 +811,11 @@ div[data-status] {
   display: none;
 }
 
+/* Let above-the-fold content paint while its blocks finish loading. */
+main > .section:first-child[data-status] {
+  display: block;
+}
+
 .section:has(.card) > .block-content {
   margin-bottom: 56px;
 }
@@ -791,29 +825,17 @@ div[data-status] {
 }
 
 @media (width >= 600px) {
-  .section:has(.card) > .block-content {
+  .section:not([data-grid]):has(.card) > .block-content {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
     gap: 24px;
-  }
-}
-
-@media (width >= 900px) {
-  .section:has(.card) > .block-content {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-
-@media (width >= 1200px) {
-  .section:has(.card) > .block-content {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
 /* Patterns uses a quieter editorial layout than the default landing blocks. */
 body:has(main .hero.top) {
   main {
-    background-color: light-dark(var(--color-beige-50), var(--color-dark));
+    background-color: light-dark(var(--color-light), var(--color-dark));
   }
 
   .section {
@@ -822,13 +844,22 @@ body:has(main .hero.top) {
     }
 
     &:has(.card) {
-      padding-top: 40px;
+      padding-top: 48px;
+      padding-bottom: 48px;
 
       h2 {
         margin: 0 0 24px;
         color: light-dark(var(--color-dark), var(--color-light));
         font-size: var(--heading-font-size-xl);
         text-align: left;
+      }
+
+      > .block-content {
+        margin-bottom: 0;
+      }
+
+      > .block-content:has(+ .default-content) {
+        margin-bottom: 48px;
       }
     }
 
@@ -838,10 +869,10 @@ body:has(main .hero.top) {
   }
 
   .hero.top {
-    background-color: light-dark(var(--color-beige-100), var(--color-gray-800));
+    background-color: light-dark(var(--color-light), var(--color-gray-800));
 
     &::before {
-      background: linear-gradient(135deg, rgb(193 66 63 / 4%), transparent 65%);
+      background: none;
     }
 
     .hero-foreground {
@@ -864,6 +895,10 @@ body:has(main .hero.top) {
         font-weight: 400;
       }
     }
+  }
+
+  footer {
+    margin-top: 24px;
   }
 }
 
@@ -921,6 +956,12 @@ body.article-page main .section > .default-content:not(:has(.hero)) {
     max-width: 100%;
   }
 
+  p > picture > img {
+    border: 1px solid var(--color-gray-200);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
   pre {
     max-width: 100%;
     box-sizing: border-box;
@@ -955,6 +996,11 @@ body.article-page main .section > .default-content:not(:has(.hero)) {
   > ol,
   > ul {
     margin: 0 0 22px;
+  }
+
+  > p:has(+ ol),
+  > p:has(+ ul) {
+    margin-bottom: 8px;
   }
 
   h2 {

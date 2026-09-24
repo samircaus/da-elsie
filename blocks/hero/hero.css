@@ -1,7 +1,7 @@
 .hero {
   position: relative;
-  color: light-dark(var(--color-dark), var(--color-light));
-  background-color: light-dark(var(--color-beige-100), var(--color-gray-800));
+  color: var(--color-dark);
+  background-color: var(--color-beige-100);
   overflow: hidden;
 
   --min-height: 420px;
@@ -40,6 +40,29 @@
     background-color: var(--color-dark);
   }
 
+  body.dark-scheme & {
+    color: var(--color-light);
+    background-color: var(--color-dark);
+
+    .hero-background img {
+      opacity: 0.3;
+    }
+
+    .hero-foreground {
+      p {
+        color: var(--color-beige-200);
+      }
+
+      .hero-detail {
+        color: var(--color-rust-400);
+      }
+
+      .hero-heading {
+        color: var(--color-light);
+      }
+    }
+  }
+
   &::before {
     content: "";
     position: absolute;
@@ -63,7 +86,7 @@
       object-fit: cover;
       width: 100%;
       height: 100%;
-      opacity: light-dark(0.4, 0.7);
+      opacity: 0.4;
     }
 
     > div {
@@ -110,7 +133,7 @@
       text-transform: uppercase;
       letter-spacing: 1.5px;
       font-weight: 600;
-      color: light-dark(var(--color-rust-600), var(--color-rust-400));
+      color: var(--color-rust-600);
       opacity: 0.95;
     }
 

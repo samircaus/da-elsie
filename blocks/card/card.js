@@ -4,8 +4,8 @@ import { createPicture } from '../../scripts/utils/picture.js';
 // 750/2000px breakpoints are far larger than the thumbnail is ever displayed at.
 const CARD_BREAKPOINTS = [
   { media: '(min-width: 1200px)', width: '450' },
-  { media: '(min-width: 900px)', width: '600' },
-  { width: '900' },
+  { media: '(min-width: 600px)', width: '600' },
+  { width: '600' },
 ];
 
 export default function init(el) {

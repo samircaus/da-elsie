@@ -109,17 +109,31 @@ export default async function decorate(block) {
   const path = window.location.pathname;
   const surfaceUri = `${base}${path}#${surfaceName}`;
 
-  const onPersonalization = (event) => {
-    log(`offers: onPersonalization - ${JSON.stringify(event)}`);
-    const surfaceDecisions = getDecisionsForSurface(event.detail, surfaceUri);
-    if (!surfaceDecisions.length) return;
+  const handlePersonalization = (detail) => {
+    const surfaceDecisions = getDecisionsForSurface(detail, surfaceUri);
+    if (!surfaceDecisions.length) return false;
 
     const offers = mapDecisionItemsToOffers(surfaceDecisions[0]);
-    if (!offers.length) return;
+    if (!offers.length) return false;
 
     log(`offers block: received ${offers.length} offers, rendering (${surfaceName})`);
     renderer.render(block, offers, {});
+    return true;
   };
 
-  window.addEventListener('aep:personalization', onPersonalization, { once: true });
+  const onPersonalization = (event) => {
+    if (handlePersonalization(event.detail)) {
+      window.removeEventListener('aep:personalization', onPersonalization);
+    }
+  };
+
+  window.addEventListener('aep:personalization', onPersonalization);
+
+  // Launch may have received the proposition before this block finished loading.
+  const retainedPersonalization = Reflect.get(window, '__aepPersonalization');
+  if (retainedPersonalization) {
+    if (handlePersonalization(retainedPersonalization)) {
+      window.removeEventListener('aep:personalization', onPersonalization);
+    }
+  }
 }

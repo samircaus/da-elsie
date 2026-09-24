@@ -6,7 +6,7 @@
   background-color: light-dark(var(--color-light), var(--color-gray-800));
   color: light-dark(var(--color-dark), var(--color-light));
   transition: transform 0.2s ease-in-out;
-  border-radius: 0;
+  border-radius: 8px;
   border: 1px solid light-dark(var(--color-gray-200), var(--color-gray-700));
 
   .card-link {
@@ -31,7 +31,7 @@
       picture {
         position: absolute;
         inset: 0;
-        opacity: 0.85;
+        opacity: 0.82;
         transition: opacity 0.25s ease-in-out;
       }
 

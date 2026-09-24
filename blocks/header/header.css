@@ -1,6 +1,6 @@
 header {
-  --logo-width: 40px;
-  --logo-height: 40px;
+  --logo-width: 100px;
+  --logo-height: 33px;
   --mega-columns: 4;
 
   display: block;

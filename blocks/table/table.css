@@ -1,7 +1,7 @@
 .table {
   overflow-x: auto;
   margin-inline: auto;
-  max-width: min(92vw, 960px);
+  max-width: min(92vw, 820px);
   width: fit-content;
 
   table {

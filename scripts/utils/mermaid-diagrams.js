@@ -5,6 +5,7 @@ const FONT_FAMILY = 'montserrat, "Trebuchet MS", sans-serif';
 const THEME_CSS = `
   .node rect, .node polygon, .node circle, .node ellipse { rx: 8px; ry: 8px; }
   .edgeLabel .label rect { rx: 4px; ry: 4px; }
+  .nodeLabel, .nodeLabel p { font-size: 16px; line-height: 1.25; }
   .edgeLabel, .edgeLabel p { font-weight: 600; font-size: 12px; }
 `;
 
@@ -104,6 +105,9 @@ async function renderAll(entries) {
     look: 'neo',
     themeVariables: THEME_VARIABLES[currentTheme()],
     themeCSS: THEME_CSS,
+    // Keep node labels within reasonably sized boxes. Long identifiers are
+    // allowed to wrap by CSS rather than forcing very wide nodes.
+    flowchart: { wrappingWidth: 280 },
   });
   await Promise.all(entries.map((entry) => renderEntry(mermaid, entry)));
 }
