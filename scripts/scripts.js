@@ -1,5 +1,4 @@
 import { loadArea, setConfig } from './ak.js';
-import injectPageJsonLd from './utils/jsonld.js';
 import { isMermaidSource, extractMermaidSource } from './utils/mermaid-diagrams.js';
 
 const hostnames = ['authorkit.dev'];
@@ -153,7 +152,6 @@ function decorateArticleNavigation(articles) {
 
 (async function loadPage() {
   setConfig({ hostnames, locales, widgets, components, decorateArea, afterSectionsDecorate });
-  injectPageJsonLd();
   const articlePath = /^\/(architecture|labs|martech|personalization|tools|agentic-ai)\/[^/]+\/?$/;
   const isArticlePage = articlePath.test(window.location.pathname);
   if (isArticlePage) {

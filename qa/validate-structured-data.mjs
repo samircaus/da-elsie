@@ -1,9 +1,6 @@
 #!/usr/bin/env node
 /* eslint-env node */
-// Renders live pages in headless Chrome (so client-side-injected JSON-LD is
-// actually present, same as what Google's tools see) and checks the output
-// against scripts/utils/jsonld.js's own required-field rules — the exact code
-// that ships to production, not a reimplementation of it.
+// Renders live pages in headless Chrome and checks server-rendered JSON-LD.
 //
 // Usage:
 //   npm run qa:structured-data
@@ -37,26 +34,41 @@ async function validateUrl(browser, url) {
   const page = await browser.newPage();
   try {
     await page.goto(url, { waitUntil: 'networkidle0', timeout: 30000 });
-    return await page.evaluate(async () => {
-      // Resolved by the live page's own origin, not by Node.
-      // eslint-disable-next-line import/no-absolute-path
-      const mod = await import('/scripts/utils/jsonld.js');
-      const scriptTag = document.querySelector('script[type="application/ld+json"][data-generated]');
-      if (!scriptTag) return { found: false };
+    return await page.evaluate(() => {
+      const scripts = [...document.querySelectorAll('script[type="application/ld+json"]')];
+      if (!scripts.length) return { found: false };
 
-      let schema;
-      try {
-        schema = JSON.parse(scriptTag.textContent);
-      } catch (err) {
-        return { found: true, parseError: err.message };
+      const schemas = [];
+      for (const script of scripts) {
+        try {
+          const data = JSON.parse(script.textContent);
+          const entries = Array.isArray(data) ? data : [data];
+          for (const entry of entries) {
+            schemas.push(...(Array.isArray(entry['@graph']) ? entry['@graph'] : [entry]));
+          }
+        } catch (err) {
+          return { found: true, parseError: err.message };
+        }
       }
 
-      let issues;
-      if (schema['@type'] === 'Article') issues = mod.getArticleSchemaIssues(schema);
-      else if (schema['@type'] === 'WebSite') issues = mod.getWebSiteSchemaIssues(schema);
-      else issues = [`unrecognized @type: ${schema['@type']}`];
+      const validateSchema = (schema) => {
+        const issues = [];
+        if (schema['@type'] === 'Article') {
+          if (!schema.headline) issues.push('missing required property: headline');
+          if (!Array.isArray(schema.image) || !schema.image.length) issues.push('missing required property: image');
+          if (!schema.datePublished) issues.push('missing recommended property: datePublished');
+          if (!schema.author?.name) issues.push('missing recommended property: author');
+        } else if (schema['@type'] === 'WebSite') {
+          if (!schema.name) issues.push('missing required property: name');
+          if (!schema.url) issues.push('missing required property: url');
+          if (!schema.publisher?.name) issues.push('missing required property: publisher.name');
+        } else {
+          return null;
+        }
+        return { type: schema['@type'], issues };
+      };
 
-      return { found: true, schema, issues };
+      return { found: true, schemas: schemas.map(validateSchema).filter(Boolean) };
     });
   } finally {
     await page.close();
@@ -87,16 +99,23 @@ async function main() {
         console.error(`FAIL  ${result.loadError.message}`);
       } else if (!result.found) {
         hasFailure = true;
-        console.error('FAIL  no <script type="application/ld+json" data-generated> found on page');
+        console.error('FAIL  no <script type="application/ld+json"> found on page');
       } else if (result.parseError) {
         hasFailure = true;
-        console.error(`FAIL  injected JSON-LD is not valid JSON: ${result.parseError}`);
-      } else if (result.issues.length) {
+        console.error(`FAIL  JSON-LD is not valid JSON: ${result.parseError}`);
+      } else if (!result.schemas.length) {
         hasFailure = true;
-        console.error(`FAIL  ${result.schema['@type']} schema has issues:`);
-        result.issues.forEach((issue) => console.error(`      - ${issue}`));
+        console.error('FAIL  no schemas found in JSON-LD');
       } else {
-        console.log(`PASS  ${result.schema['@type']} schema has all required properties`);
+        for (const schema of result.schemas) {
+          if (schema.issues.length) {
+            hasFailure = true;
+            console.error(`FAIL  ${schema.type} schema has issues:`);
+            schema.issues.forEach((issue) => console.error(`      - ${issue}`));
+          } else {
+            console.log(`PASS  ${schema.type} schema has all required properties`);
+          }
+        }
       }
 
       console.log('Confirm rich-result eligibility and full Schema.org compliance manually:');
